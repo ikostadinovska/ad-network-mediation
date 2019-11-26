@@ -49,11 +49,12 @@ public class AdNetworkBean {
     public AdNetwork update(Long id, AdNetwork adNetworkDto) {
         try {
             AdNetworkEntity adNetworkEntity = adNetworkRepository.getOne(id);
+            adNetworkEntity.setId(id);
             adNetworkEntity.setName(adNetworkDto.getName());
             adNetworkEntity.setPerformance(adNetworkDto.getPerformance());
             adNetworkRepository.save(adNetworkEntity);
 
-            return new AdNetwork(adNetworkRepository.getOne(id));
+            return new AdNetwork(adNetworkEntity);
         } catch (EntityNotFoundException e) {
             Logger.getLogger(AdNetworkBean.class.getName()).error("Entity not found for id: " + id);
         }
